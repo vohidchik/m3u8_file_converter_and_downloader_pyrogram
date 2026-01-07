@@ -1,0 +1,19 @@
+name: Offline M3U8 Bot
+on:
+  workflow_dispatch: # Tugmani bossangiz yoqiladi
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Tools
+        run: |
+          sudo apt update && sudo apt install ffmpeg -y
+          pip install -r requirements.txt
+      - name: Start Bot
+        env:
+          API_ID: ${{ secrets.API_ID }}
+          API_HASH: ${{ secrets.API_HASH }}
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+        run: python3 main.py
